@@ -15,4 +15,9 @@ class Library extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function books()
+    {
+        $this->morphedByMany(Book::class, 'mediable');
+    }
 }
