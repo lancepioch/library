@@ -18,6 +18,6 @@ class Library extends Model
 
     public function books()
     {
-        $this->morphedByMany(Book::class, 'mediable');
+        return $this->morphedByMany(Book::class, 'mediable');
     }
 }
