@@ -8,7 +8,9 @@ use Livewire\Component;
 
 class Book extends Component
 {
-    public $book, $library, $exists;
+    protected $book, $library;
+
+    public $exists;
 
     public function mount($book, $library)
     {
@@ -18,7 +20,10 @@ class Book extends Component
 
     public function render()
     {
-        return view('livewire.book');
+        $book = $this->book;
+        $library = $this->library;
+
+        return view('livewire.book', compact(['book', 'library']));
     }
 
     public function assignBook()
@@ -28,7 +33,8 @@ class Book extends Component
 
         if ($book === null) {
             unset($this->book['in_library']);
-            $book = BookM::create($this->book);
+            $book = $this->book;
+            $book->save();
         }
 
         $library->books()->attach($book->id);
