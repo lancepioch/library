@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::view('/books', 'books');
 
+Route::livewire('/library/{library}', 'library-list');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
