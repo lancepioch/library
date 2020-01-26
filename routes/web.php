@@ -15,9 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view('/books', 'books');
-
 Route::livewire('/library/{library}', 'library-list');
+Route::livewire('/books/{library}', 'book-list');
 
 Auth::routes();
 
