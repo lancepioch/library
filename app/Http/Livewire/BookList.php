@@ -19,13 +19,20 @@ class BookList extends Component
 
     public $isbn = '';
 
+    protected $updatesQueryString = ['search'];
+
     public function mount(Library $library)
     {
         $this->library = $library;
+        $this->search = request()->query('search', $this->search);
     }
 
     public function render()
     {
+        if (! empty($this->search)) {
+            $this->search();
+        }
+
         $results = $this->results;
         $library = $this->library;
 
