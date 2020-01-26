@@ -11,7 +11,7 @@
 
         <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">{{ $book['title'] ?? 'No Title Found' }}</div>
-            <p class="text-gray-700 text-base">{{ Str::limit($book['description'] ?? '', 200) }}</p>
+            <p class="text-gray-700 text-base">{{ Str::limit($book['description'] ?? '', 100) }}</p>
         </div>
     </div>
 </div>
