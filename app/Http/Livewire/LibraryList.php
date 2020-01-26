@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class LibraryList extends Component
 {
-    protected $library;
+    public $library;
 
     public function mount(Library $library)
     {
@@ -24,6 +24,6 @@ class LibraryList extends Component
             return $book;
         });
 
-        return view('livewire.library', compact('library'));
+        return view('livewire.library');
     }
 }
