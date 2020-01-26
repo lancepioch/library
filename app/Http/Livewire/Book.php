@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class Book extends Component
 {
-    protected $book, $library;
+    public $book, $library;
 
     public $exists;
 
@@ -20,10 +20,7 @@ class Book extends Component
 
     public function render()
     {
-        $book = $this->book;
-        $library = $this->library;
-
-        return view('livewire.book', compact(['book', 'library']));
+        return view('livewire.book');
     }
 
     public function assignBook()
