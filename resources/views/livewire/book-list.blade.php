@@ -14,8 +14,10 @@
     @empty
     @endforelse
 
+        @if ($results instanceof \Illuminate\Pagination\AbstractPaginator)
         <div class="flex w-full justify-content-center py-3">
             {{ $results->links() }}
         </div>
+        @endif
     </div>
 </div>
