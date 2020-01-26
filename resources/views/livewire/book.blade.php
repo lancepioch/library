@@ -13,7 +13,7 @@
             <button wire:click="assignBook" class="m-4 ml-4 flex-shrink-0 bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline text-white font-bold py-2 px-2 rounded">Add to Library</button>
         @endif
 
-        <div class="px-6">
+        <div class="px-6 overflow-hidden">
             <div class="font-bold text-xl mb-2" title="{{ $book['title'] }}">{{ Str::limit($book['title'], 50) }}</div>
             <p class="text-gray-700 text-base">{{ Str::limit($book['description'] ?? '', 150) }}</p>
         </div>
