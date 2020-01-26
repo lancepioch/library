@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Library;
 use App\Book as BookM;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class Book extends Component
@@ -26,9 +27,11 @@ class Book extends Component
     public function assignBook()
     {
         $book = BookM::find($this->book['id'] ?? null);
-        if ($book === null) {
+
+        if (is_null($book)) {
             unset($this->book['in_library']);
-            $book = $this->book;
+            $this->book['published_at'] = new Carbon($this->book['published_at']);
+            $book = new BookM($this->book);
             $book->save();
         }
 

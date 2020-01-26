@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Book;
 use App\Library;
-use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Livewire\Component;
 
@@ -53,16 +52,16 @@ class BookList extends Component
                 $exists = $this->library->books->contains($previousBook->id);
             }
 
-            $books->add(new Book([
+            $books->add([
                 'id' => $previousBook->id ?? null,
                 'title' => $book['volumeInfo']['title'],
                 'subtitle' => $book['volumeInfo']['subtitle'] ?? '',
                 'isbn' => $isbn,
                 'description' => $book['volumeInfo']['description'] ?? '',
                 'google_id' => $book['id'] ?? '',
-                'published_at' => new Carbon($book['volumeInfo']['publishedDate']),
+                'published_at' => $book['volumeInfo']['publishedDate'],
                 'in_library' => $exists,
-            ]));
+            ]);
         }
 
         $this->results = $books;

@@ -10,7 +10,7 @@
     <div class="container mx-auto flex w-full flex-wrap">
         {{ $isbn }}
     @forelse($results as $result)
-        @livewire('book', $result, $library, key($result->google_id))
+        @livewire('book', $result, $library, key($result['google_id']))
     @empty
     @endforelse
     </div>
