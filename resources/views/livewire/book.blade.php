@@ -7,10 +7,10 @@
                  alt="{{ $book['title'] }}">
         </div>
 
-        @if (! $book['in_library'])
-        <button wire:click="assignBook" class="m-4 ml-4 flex-shrink-0 bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline text-white font-bold py-2 px-2 rounded">Add to Library</button>
+        @if ($book['in_library'])
+            <button wire:click="unassignBook" class="m-4 ml-4 flex-shrink-0 bg-red-500 hover:bg-red-600 focus:outline-none focus:shadow-outline text-white font-bold py-2 px-2 rounded">Remove from Library</button>
         @else
-        <button wire:click="unassignBook" class="m-4 ml-4 flex-shrink-0 bg-red-500 hover:bg-red-600 focus:outline-none focus:shadow-outline text-white font-bold py-2 px-2 rounded">Remove from Library</button>
+            <button wire:click="assignBook" class="m-4 ml-4 flex-shrink-0 bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline text-white font-bold py-2 px-2 rounded">Add to Library</button>
         @endif
 
         <div class="px-6 py-4">
