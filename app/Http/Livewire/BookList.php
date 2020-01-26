@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class BookList extends Component
 {
-    protected $library;
+    public $library;
 
     protected $results = [];
 
@@ -47,11 +47,10 @@ class BookList extends Component
         foreach ($results['items'] as $book) {
             $exists = false;
             $isbn = $book['volumeInfo']['industryIdentifiers'][0]['identifier'] ?? '';
-            $library = Library::findOrFail($this->library['id']);
-            
+
             $previousBook = Book::where('isbn', $isbn)->first();
             if ($previousBook) {
-                $exists = $library->books->contains($previousBook->id);
+                $exists = $this->library->books->contains($previousBook->id);
             }
 
             $books->add(new Book([
