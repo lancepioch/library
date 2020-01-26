@@ -29,14 +29,13 @@ class Book extends Component
     public function assignBook()
     {
         $book = BookM::find($this->book['id'] ?? null);
-        $library = Library::find($this->library['id'] ?? null);
-
         if ($book === null) {
             unset($this->book['in_library']);
             $book = $this->book;
             $book->save();
         }
 
+        $library = Library::find($this->library['id'] ?? null);
         $library->books()->attach($book->id);
         $this->book['in_library'] = true;
         $this->book['id'] = $book->id;
