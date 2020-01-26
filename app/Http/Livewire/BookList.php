@@ -66,7 +66,7 @@ class BookList extends Component
             ]));
         }
 
-        $this->results = $books->take(5);
+        $this->results = $books;
     }
 
     public function testTest($i = 9)
