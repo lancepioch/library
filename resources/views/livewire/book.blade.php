@@ -1,5 +1,5 @@
 
-<div class="w-full sm:w-1/2 md:w-1/3 xl:w-1/6 rounded overflow-hidden shadow-md">
+<div class="w-full sm:w-1/2 md:w-1/3 xl:w-1/5 rounded overflow-hidden shadow-md">
     <div>
         <img class="h-40 px-6 py-2" src="https://books.google.com/books/content?id={{ $book['google_id'] ?? '' }}&printsec=frontcover&img=1&zoom=5" alt="">
 
