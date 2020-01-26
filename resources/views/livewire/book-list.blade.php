@@ -13,5 +13,9 @@
         @livewire('book', $result, $library, key($result['google_id']))
     @empty
     @endforelse
+
+        <div class="flex w-full justify-content-center py-3">
+            {{ $results->links() }}
+        </div>
     </div>
 </div>

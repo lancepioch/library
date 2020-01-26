@@ -5,26 +5,35 @@ namespace App\Http\Livewire;
 use App\Book;
 use App\Library;
 use GuzzleHttp\Client;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class BookList extends Component
 {
+    use WithPagination;
+
     public $library;
 
     protected $results = [];
 
     public $search = '';
 
+    public $page = 1;
+
     public $test = 0;
 
     public $isbn = '';
 
-    protected $updatesQueryString = ['search'];
+    const PER_PAGE = 10;
+
+    protected $updatesQueryString = ['search', 'page'];
 
     public function mount(Library $library)
     {
         $this->library = $library;
         $this->search = request()->query('search', $this->search);
+        $this->paginator['page'] = request()->query('page', $this->page);
     }
 
     public function render()
@@ -42,7 +51,10 @@ class BookList extends Component
     public function search()
     {
         $client = new Client();
-        $url = 'https://www.googleapis.com/books/v1/volumes?q=' . urlencode($this->search);
+        $currentPage = $this->paginator['page'] ?? 1;
+        $this->page = $currentPage;
+        $startIndex = ($currentPage - 1) * self::PER_PAGE;
+        $url = "https://www.googleapis.com/books/v1/volumes?startIndex=$startIndex&q=" . urlencode($this->search);
         $res = $client->request('GET', $url);
 
         $json = $res->getBody();
@@ -70,6 +82,9 @@ class BookList extends Component
                 'in_library' => $exists,
             ]);
         }
+
+        $totalCount = $results['totalItems'];
+        $books = (new LengthAwarePaginator($books, $totalCount, self::PER_PAGE, $currentPage));
 
         $this->results = $books;
     }
