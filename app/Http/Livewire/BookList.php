@@ -64,9 +64,9 @@ class BookList extends Component
 
         foreach ($results['items'] as $book) {
             $exists = false;
-            $isbn = $book['volumeInfo']['industryIdentifiers'][0]['identifier'] ?? '';
+            $isbn = $book['volumeInfo']['industryIdentifiers'][0]['identifier'] ?? null;
 
-            $previousBook = Book::where('isbn', $isbn)->first();
+            $previousBook = Book::where('isbn', $isbn)->whereNotNull('isbn')->first();
             if ($previousBook) {
                 $exists = $this->library->books->contains($previousBook->id);
             }

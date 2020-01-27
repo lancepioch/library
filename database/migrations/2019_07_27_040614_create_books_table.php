@@ -17,7 +17,7 @@ class CreateBooksTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('subtitle')->nullable();
-            $table->string('isbn');
+            $table->string('isbn')->nullable();
             $table->text('description')->nullable();
             $table->string('google_id');
             $table->date('published_at')->nullable();
