@@ -20,7 +20,7 @@ class CreateBooksTable extends Migration
             $table->string('isbn');
             $table->text('description')->nullable();
             $table->string('google_id');
-            $table->date('published_at');
+            $table->date('published_at')->nullable();
             $table->timestamps();
         });
     }
