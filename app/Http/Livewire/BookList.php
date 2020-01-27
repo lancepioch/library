@@ -74,11 +74,11 @@ class BookList extends Component
             $books->add([
                 'id' => $previousBook->id ?? null,
                 'title' => $book['volumeInfo']['title'],
-                'subtitle' => $book['volumeInfo']['subtitle'] ?? '',
+                'subtitle' => $book['volumeInfo']['subtitle'] ?? null,
                 'isbn' => $isbn,
-                'description' => $book['volumeInfo']['description'] ?? '',
+                'description' => $book['volumeInfo']['description'] ?? null,
                 'google_id' => $book['id'] ?? '',
-                'published_at' => $book['volumeInfo']['publishedDate'],
+                'published_at' => $book['volumeInfo']['publishedDate'] ?? null,
                 'in_library' => $exists,
             ]);
         }
