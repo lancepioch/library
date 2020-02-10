@@ -9,9 +9,16 @@ class LibraryList extends Component
 {
     public $library;
 
+    protected $listeners = ['echo:books,BookAdded' => 'notifyNewBook'];
+
     public function mount(Library $library)
     {
         $this->library = $library;
+    }
+
+    public function notifyNewBook($parameters)
+    {
+        
     }
 
     public function render()

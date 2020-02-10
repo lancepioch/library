@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\BookAdded;
+use App\Events\BookRemoved;
 use App\Library;
 use App\Book as BookM;
 use Carbon\Carbon;
@@ -11,7 +13,34 @@ class Book extends Component
 {
     public $book, $library;
 
+    protected $listeners = ['echo:books,BookRemoved' => 'notifyRemoveBook'];
+
     public $exists;
+
+    public function getListeners()
+    {
+        $id = $this->book['id'];
+
+        if (! $id) {
+            return [];
+        }
+
+        return [
+            "echo:books=$id,BookAdded" => 'notifyAddBook',
+            "echo:books=$id,BookRemoved" => 'notifyRemoveBook',
+        ];
+    }
+
+    public function notifyAddBook($parameters)
+    {
+        $this->book['in_library'] = true;
+    }
+
+    public function notifyRemoveBook($parameters)
+    {
+
+        $this->book['in_library'] = false;
+    }
 
     public function mount($book, $library)
     {
@@ -39,6 +68,8 @@ class Book extends Component
         $library->books()->attach($book->id);
         $this->book['in_library'] = true;
         $this->book['id'] = $book->id;
+
+        event(new BookAdded($library, $book));
     }
 
     public function unassignBook()
@@ -46,5 +77,8 @@ class Book extends Component
         $library = Library::find($this->library['id'] ?? null);
         $library->books()->detach($this->book['id']);
         $this->book['in_library'] = false;
+
+        $book = BookM::find($this->book['id'] ?? null);
+        event(new BookRemoved($library, $book));
     }
 }
