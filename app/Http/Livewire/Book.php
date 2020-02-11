@@ -59,7 +59,6 @@ class Book extends Component
 
         if (is_null($book)) {
             unset($this->book['in_library']);
-            $this->book['published_at'] = new Carbon($this->book['published_at']);
             $book = new BookM($this->book);
             $book->save();
         }
