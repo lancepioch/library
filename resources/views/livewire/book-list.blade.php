@@ -4,6 +4,10 @@
 
         <button class="ml-4 flex-shrink-0 bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline text-white font-bold py-2 px-4 rounded">Search</button>
 
+        <a href="{{ route('library', [$library]) }}"
+            class="ml-4 flex-shrink-0 bg-gray-500 hover:bg-gray-600 focus:outline-none focus:shadow-outline text-white font-bold py-2 px-4 rounded"
+        >Back to Library</a>
+
         <div wire:loading>Loading Search...</div>
     </form>
 
