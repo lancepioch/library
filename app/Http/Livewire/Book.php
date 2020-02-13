@@ -13,8 +13,6 @@ class Book extends Component
 {
     public $book, $library;
 
-    protected $listeners = ['echo:books,BookRemoved' => 'notifyRemoveBook'];
-
     public $exists;
 
     public function getListeners()
