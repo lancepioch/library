@@ -53,29 +53,11 @@ class Book extends Component
 
     public function assignBook()
     {
-        $book = BookM::find($this->book['id'] ?? null);
-
-        if (is_null($book)) {
-            unset($this->book['in_library']);
-            $book = new BookM($this->book);
-            $book->save();
-        }
-
-        $library = Library::find($this->library['id'] ?? null);
-        $library->books()->attach($book->id);
-        $this->book['in_library'] = true;
-        $this->book['id'] = $book->id;
-
-        event(new BookAdded($library, $book));
+        $this->book = BookM::assignBook($this->book, $this->library);
     }
 
     public function unassignBook()
     {
-        $library = Library::find($this->library['id'] ?? null);
-        $library->books()->detach($this->book['id']);
-        $this->book['in_library'] = false;
-
-        $book = BookM::find($this->book['id'] ?? null);
-        event(new BookRemoved($library, $book));
+        $this->book = BookM::unassignBook($this->book, $this->library);
     }
 }
