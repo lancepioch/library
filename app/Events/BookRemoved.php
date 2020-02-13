@@ -36,6 +36,9 @@ class BookRemoved implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel("books={$this->book->id}");
+        return [
+            new Channel('books'),
+            new Channel("books={$this->book->id}"),
+        ];
     }
 }
