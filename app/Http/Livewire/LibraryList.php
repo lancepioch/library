@@ -10,7 +10,10 @@ class LibraryList extends Component
     public $library;
     public $books;
 
-    protected $listeners = ['echo:books,BookAdded' => 'notifyNewBook'];
+    protected $listeners = [
+        'echo:books,BookAdded' => 'notifyNewBook',
+        'echo:books,BookRemoved' => 'notifyRemovedBook',
+    ];
 
     public function mount(Library $library)
     {
@@ -20,9 +23,16 @@ class LibraryList extends Component
 
     public function notifyNewBook($parameters)
     {
-        $book = $parameters['book'];
+        $this->books[] = \App\Book::find($parameters['book']['id']);
+    }
 
-        $this->books[] = \App\Book::find($book['id']);
+    public function notifyRemovedBook($parameters)
+    {
+        foreach ($this->books as $key => $book) {
+            if ($book->id == $parameters['book']['id']) {
+                $this->books->forget($key);
+            }
+        }
     }
 
     public function render()
